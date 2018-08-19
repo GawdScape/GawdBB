@@ -851,7 +851,7 @@ else if($mybb->input['action'] == "refresh_question" && $mybb->settings['securit
 	{
 		$question = $db->fetch_array($query);
 
-		echo json_encode(array("question" => htmlspecialchars_uni($question['question']), 'sid' => htmlspecialchars_uni($question['sid'])));
+		echo json_encode(array("question" => $question['question'], 'sid' => htmlspecialchars_uni($question['sid'])));
 		exit;
 	}
 	else
