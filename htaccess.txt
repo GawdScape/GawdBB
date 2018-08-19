@@ -22,29 +22,64 @@ Options -MultiViews +FollowSymlinks -Indexes
 #
 <IfModule mod_rewrite.c>
 	RewriteEngine on
-	RewriteRule ^forum-([0-9]+)\.html$ forumdisplay.php?fid=$1 [L,QSA]
-	RewriteRule ^forum-([0-9]+)-page-([0-9]+)\.html$ forumdisplay.php?fid=$1&page=$2 [L,QSA]
 
-	RewriteRule ^thread-([0-9]+)\.html$ showthread.php?tid=$1 [L,QSA]
-	RewriteRule ^thread-([0-9]+)-page-([0-9]+)\.html$ showthread.php?tid=$1&page=$2 [L,QSA]
-	RewriteRule ^thread-([0-9]+)-lastpost\.html$ showthread.php?tid=$1&action=lastpost [L,QSA]
-	RewriteRule ^thread-([0-9]+)-nextnewest\.html$ showthread.php?tid=$1&action=nextnewest [L,QSA]
-	RewriteRule ^thread-([0-9]+)-nextoldest\.html$ showthread.php?tid=$1&action=nextoldest [L,QSA]
-	RewriteRule ^thread-([0-9]+)-newpost\.html$ showthread.php?tid=$1&action=newpost [L,QSA]
-	RewriteRule ^thread-([0-9]+)-post-([0-9]+)\.html$ showthread.php?tid=$1&pid=$2 [L,QSA]
+	RewriteRule ^forums$ forums.php [L,QSA]
+	RewriteRule ^portal$ portal.php [L,QSA]
+	RewriteRule ^index$ forums.php [L,QSA]
+	RewriteRule ^home$ portal.php [L,QSA]
+	RewriteRule ^news$ portal.php [L,QSA]
+	RewriteRule ^contact$ contact.php [L,QSA]
 
-	RewriteRule ^post-([0-9]+)\.html$ showthread.php?pid=$1 [L,QSA]
+	RewriteRule ^login$ member.php?action=login [L,QSA]
+	RewriteRule ^register$ member.php?action=register [L,QSA]
+	RewriteRule ^lostpw$ member.php?action=lostpw [L,QSA]
+	RewriteRule ^logout$ member.php?action=logout [L,QSA]
+	RewriteRule ^member$ member.php [L,QSA]
+	RewriteRule ^member/(.*)$ member.php?action=$1 [L,QSA]
 
-	RewriteRule ^announcement-([0-9]+)\.html$ announcements.php?aid=$1 [L,QSA]
+	RewriteRule ^forum/id-([0-9]+)$ forumdisplay.php?fid=$1 [L,QSA]
+	RewriteRule ^forum/id-([0-9]+)/page-([0-9]+)$ forumdisplay.php?fid=$1&page=$2 [L,QSA]
+	RewriteRule ^forum/?$ /forums [L,R]
 
-	RewriteRule ^user-([0-9]+)\.html$ member.php?action=profile&uid=$1 [L,QSA]
+	RewriteRule ^thread/id-([0-9]+)$ showthread.php?tid=$1 [L,QSA]
+	RewriteRule ^thread/id-([0-9]+)/page-([0-9]+)$ showthread.php?tid=$1&page=$2 [L,QSA]
+	RewriteRule ^thread/id-([0-9]+)/lastpost$ showthread.php?tid=$1&action=lastpost [L,QSA]
+	RewriteRule ^thread/id-([0-9]+)/nextnewest$ showthread.php?tid=$1&action=nextnewest [L,QSA]
+	RewriteRule ^thread/id-([0-9]+)/nextoldest$ showthread.php?tid=$1&action=nextoldest [L,QSA]
+	RewriteRule ^thread/id-([0-9]+)/newpost$ showthread.php?tid=$1&action=newpost [L,QSA]
+	RewriteRule ^thread/id-([0-9]+)/post-([0-9]+)$ showthread.php?tid=$1&pid=$2 [L,QSA]
+	RewriteRule ^thread/?$ /forums [L,R]
+	# Fix: Last post redirect
+	RewriteRule ^thread/id-([0-9]+)/thread/id-([0-9]+)/post-([0-9]+)$ /thread/id-$1/post-$2 [L,R,QSA]
 
-	RewriteRule ^calendar-([0-9]+)\.html$ calendar.php?calendar=$1 [L,QSA]
-	RewriteRule ^calendar-([0-9]+)-year-([0-9]+)-month-([0-9]+)\.html$ calendar.php?calendar=$1&year=$2&month=$3 [L,QSA]
-	RewriteRule ^calendar-([0-9]+)-year-([0-9]+)-month-([0-9]+)-day-([0-9]+)\.html$ calendar.php?action=dayview&calendar=$1&year=$2&month=$3&day=$4 [L,QSA]
-	RewriteRule ^calendar-([0-9]+)-week-(n?[0-9]+)\.html$ calendar.php?action=weekview&calendar=$1&week=$2 [L,QSA]
+	RewriteRule ^post/id-([0-9]+)$ showthread.php?pid=$1 [L,QSA]
+	RewriteRule ^post/?$ /forums [L,R]
 
-	RewriteRule ^event-([0-9]+)\.html$ calendar.php?action=event&eid=$1 [L,QSA]
+	RewriteRule ^announcement/id-([0-9]+)$ announcements.php?aid=$1 [L,QSA]
+	RewriteRule ^announcement/?$ /forums [L,R]
+
+	RewriteRule ^user/id-([0-9]+)$ member.php?action=profile&uid=$1 [L,QSA]
+	RewriteRule ^user/?$ /memberlist [L,R]
+
+	RewriteRule ^memberlist/?$ memberlist.php [L,QSA]
+	RewriteRule ^memberlist/page-([0-9]+)$ memberlist.php?page=$1 [L,QSA]
+	RewriteRule ^memberlist/match/(.*)/(.*)$ memberlist.php?username_match=$1&username=$2 [L,QSA]
+	RewriteRule ^showteam$ showteam.php [L,QSA]
+
+	RewriteRule ^calendar/?$ calendar.php [L,QSA]
+	RewriteRule ^calendar/id-([0-9]+)$ calendar.php?calendar=$1 [L,QSA]
+	RewriteRule ^calendar/id-([0-9]+)/year-([0-9]+)/month-([0-9]+)$ calendar.php?calendar=$1&year=$2&month=$3 [L,QSA]
+	RewriteRule ^calendar/id-([0-9]+)/year-([0-9]+)/month-([0-9]+)/day-([0-9]+)$ calendar.php?action=dayview&calendar=$1&year=$2&month=$3&day=$4 [L,QSA]
+	RewriteRule ^calendar/id-([0-9]+)/week-(n?[0-9]+)$ calendar.php?action=weekview&calendar=$1&week=$2 [L,QSA]
+
+	RewriteRule ^event/id-([0-9]+)$ calendar.php?action=event&eid=$1 [L,QSA]
+	RewriteRule ^event/?$ /calendar [L,R]
+
+	RewriteRule ^help/?$ misc.php?action=help [L,QSA]
+	RewriteRule ^help/id-([0-9]+)$ misc.php?action=help&hid=$1 [L,QSA]
+
+	RewriteRule ^search/?$ search.php [L,QSA]
+	RewriteRule ^search/(.*)$ search.php?action=$1 [L,QSA]
 
 	<IfModule mod_env.c>
 		SetEnv SEO_SUPPORT 1

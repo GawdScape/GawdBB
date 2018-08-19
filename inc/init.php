@@ -247,20 +247,20 @@ if($mybb->settings['seourls'] == "yes" || ($mybb->settings['seourls'] == "auto" 
 {
 	$mybb->seo_support = true;
 
-	define('FORUM_URL', "forum-{fid}.html");
-	define('FORUM_URL_PAGED', "forum-{fid}-page-{page}.html");
-	define('THREAD_URL', "thread-{tid}.html");
-	define('THREAD_URL_PAGED', "thread-{tid}-page-{page}.html");
-	define('THREAD_URL_ACTION', 'thread-{tid}-{action}.html');
-	define('THREAD_URL_POST', 'thread-{tid}-post-{pid}.html');
-	define('POST_URL', "post-{pid}.html");
-	define('PROFILE_URL', "user-{uid}.html");
-	define('ANNOUNCEMENT_URL', "announcement-{aid}.html");
-	define('CALENDAR_URL', "calendar-{calendar}.html");
-	define('CALENDAR_URL_MONTH', 'calendar-{calendar}-year-{year}-month-{month}.html');
-	define('CALENDAR_URL_DAY', 'calendar-{calendar}-year-{year}-month-{month}-day-{day}.html');
-	define('CALENDAR_URL_WEEK', 'calendar-{calendar}-week-{week}.html');
-	define('EVENT_URL', "event-{eid}.html");
+	define('FORUM_URL', "forum/id-{fid}");
+	define('FORUM_URL_PAGED', "forum/id-{fid}/page-{page}");
+	define('THREAD_URL', "thread/id-{tid}");
+	define('THREAD_URL_PAGED', "thread/id-{tid}/page-{page}");
+	define('THREAD_URL_ACTION', 'thread/id-{tid}/{action}');
+	define('THREAD_URL_POST', 'thread/id-{tid}/post-{pid}');
+	define('POST_URL', "post/id-{pid}");
+	define('PROFILE_URL', "user/id-{uid}");
+	define('ANNOUNCEMENT_URL', "announcement/id-{aid}");
+	define('CALENDAR_URL', "calendar/id-{calendar}");
+	define('CALENDAR_URL_MONTH', 'calendar/id-{calendar}/year-{year}/month-{month}');
+	define('CALENDAR_URL_DAY', 'calendar/id-{calendar}/year-{year}/month-{month}/day-{day}');
+	define('CALENDAR_URL_WEEK', 'calendar/id-{calendar}/week-{week}');
+	define('EVENT_URL', "event/id-{eid}");
 }
 else
 {
