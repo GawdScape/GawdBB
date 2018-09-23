@@ -3456,7 +3456,7 @@ function get_subscription_method($tid = 0, $postoptions = array())
 {
 	global $mybb;
 
-	$subscription_methods = array('dont', 'none', 'email', 'pm'); // Define methods
+	$subscription_methods = array('', 'none', 'email', 'pm'); // Define methods
 	$subscription_method = (int)$mybb->user['subscriptionmethod']; // Set user default
 
 	// If no user default method available then reset method
@@ -8894,5 +8894,39 @@ if(!function_exists('array_column'))
 			}
 		}
  		return $values;
+	}
+}
+
+/**
+ * Performs a timing attack safe string comparison.
+ *
+ * @param string $known_string The first string to be compared.
+ * @param string $user_string The second, user-supplied string to be compared.
+ * @return bool Result of the comparison.
+ */
+function my_hash_equals($known_string, $user_string)
+{
+	if(version_compare(PHP_VERSION, '5.6.0', '>='))
+	{
+		return hash_equals($known_string, $user_string);
+	}
+	else
+	{
+		$known_string_length = my_strlen($known_string);
+		$user_string_length = my_strlen($user_string);
+
+		if($user_string_length != $known_string_length)
+		{
+			return false;
+		}
+
+		$result = 0;
+
+		for($i = 0; $i < $known_string_length; $i++)
+		{
+			$result |= ord($known_string[$i]) ^ ord($user_string[$i]);
+		}
+
+		return $result === 0;
 	}
 }

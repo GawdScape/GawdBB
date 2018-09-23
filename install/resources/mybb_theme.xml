@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<theme name="MyBB Master Style" version="1818">
+<theme name="MyBB Master Style" version="1819">
 	<properties>
 		<templateset><![CDATA[1]]></templateset>
 		<imgdir><![CDATA[images]]></imgdir>
@@ -9,7 +9,7 @@
 		<editortheme><![CDATA[mybb.css]]></editortheme>
 	</properties>
 	<stylesheets>
-		<stylesheet name="global.css" version="1818" disporder="1"><![CDATA[body {
+		<stylesheet name="global.css" version="1819" disporder="1"><![CDATA[body {
 	background: #fff;
 	color: #333;
 	text-align: center;
@@ -1338,18 +1338,10 @@ div.error ul {
 	background-position: 0 -320px;
 }
 
-.postbit_qrestore,
-.status_type{
-	display:none!important;
-}
-
-.deleted_post .postbit_qrestore,
-.deleted_post .status_type{
-	display:inline!important;
-}
-
-.deleted_post .postbit_mirage{
-	display:none!important;
+.post:not(.deleted_post) .postbit_qrestore,
+.post:not(.deleted_post) .status_type,
+.post.deleted_post .postbit_mirage {
+    display: none;
 }
 
 a.button:link,
@@ -9543,14 +9535,14 @@ if(use_xmlhttprequest == "1")
 {$prefixselect_prefix}
 </select>]]></template>
 		<template name="post_savedraftbutton" version="120"><![CDATA[&nbsp;<input type="submit" class="button" name="savedraft" value="{$lang->save_draft}" />]]></template>
-		<template name="post_subscription_method" version="1800"><![CDATA[<tr>
+		<template name="post_subscription_method" version="1819"><![CDATA[<tr>
 <td class="{$bgcolor}" valign="top"><strong>{$lang->thread_subscription_method}</strong><br />
 <span class="smalltext">{$lang->thread_subscription_method_desc}</span></td>
 <td class="{$bgcolor} smalltext">
-	<label><input type="radio" name="postoptions[subscriptionmethod]" {$postoptions_subscriptionmethod_dont} value="" style="vertical-align: middle;" /> {$lang->no_subscribe}</label><br />
-	<label><input type="radio" name="postoptions[subscriptionmethod]" {$postoptions_subscriptionmethod_none} value="none" style="vertical-align: middle;" /> {$lang->no_subscribe_notification}</label><br />
-	<label><input type="radio" name="postoptions[subscriptionmethod]" {$postoptions_subscriptionmethod_email} value="email" style="vertical-align: middle;" /> {$lang->instant_email_subscribe}</label><br />
-	<label><input type="radio" name="postoptions[subscriptionmethod]" {$postoptions_subscriptionmethod_pm} value="pm" style="vertical-align: middle;" /> {$lang->instant_pm_subscribe}</label><br />
+	<label><input type="radio" name="postoptions[subscriptionmethod]" {$subscribe}value="" style="vertical-align: middle;" /> {$lang->no_subscribe}</label><br />
+	<label><input type="radio" name="postoptions[subscriptionmethod]" {$nonesubscribe}value="none" style="vertical-align: middle;" /> {$lang->no_subscribe_notification}</label><br />
+	<label><input type="radio" name="postoptions[subscriptionmethod]" {$emailsubscribe}value="email" style="vertical-align: middle;" /> {$lang->instant_email_subscribe}</label><br />
+	<label><input type="radio" name="postoptions[subscriptionmethod]" {$pmsubscribe}value="pm" style="vertical-align: middle;" /> {$lang->instant_pm_subscribe}</label><br />
 </td>
 </tr>]]></template>
 		<template name="postbit" version="1813"><![CDATA[{$ignore_bit}{$deleted_bit}
@@ -13962,9 +13954,9 @@ if(use_xmlhttprequest == "1")
 <td class="trow1" width="20%"><strong>{$lang->username}</strong></td>
 <td class="trow1">{$mybb->user['username']} <span class="smalltext">[<strong><a href="member.php?action=logout&amp;logoutkey={$mybb->user['logoutkey']}">{$lang->change_user}</a></strong>]</span></td>
 </tr>]]></template>
-		<template name="codebuttons" version="1808"><![CDATA[<link rel="stylesheet" href="{$mybb->asset_url}/jscripts/sceditor/editor_themes/{$theme['editortheme']}" type="text/css" media="all" />
+		<template name="codebuttons" version="1819"><![CDATA[<link rel="stylesheet" href="{$mybb->asset_url}/jscripts/sceditor/editor_themes/{$theme['editortheme']}" type="text/css" media="all" />
 <script type="text/javascript" src="{$mybb->asset_url}/jscripts/sceditor/jquery.sceditor.bbcode.min.js?ver=1805"></script>
-<script type="text/javascript" src="{$mybb->asset_url}/jscripts/bbcodes_sceditor.js?ver=1808"></script>
+<script type="text/javascript" src="{$mybb->asset_url}/jscripts/bbcodes_sceditor.js?ver=1819"></script>
 <script type="text/javascript" src="{$mybb->asset_url}/jscripts/sceditor/editor_plugins/undo.js?ver=1805"></script>
 <script type="text/javascript">
 var partialmode = {$mybb->settings['partialmode']},
